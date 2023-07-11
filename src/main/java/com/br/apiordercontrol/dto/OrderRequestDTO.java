@@ -17,7 +17,7 @@ public class OrderRequestDTO {
     @NotEmpty
     private String status;
 
-    @NotNull @Min(11) @Max(12)
+    @NotNull
     private Long phone;
 
     @Email

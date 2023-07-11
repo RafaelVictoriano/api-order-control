@@ -20,11 +20,9 @@ public class OrderController {
     @Autowired
     CreateOrderService service;
 
-
     @PostMapping
     public ResponseEntity<Void> post(@RequestBody @Valid final OrderRequestDTO dto)
-            throws URISyntaxException
-    {
+            throws URISyntaxException {
         final var orderId = service.start(dto);
         return ResponseEntity.created(new URI("/v1/order/" + orderId)).build();
     }
