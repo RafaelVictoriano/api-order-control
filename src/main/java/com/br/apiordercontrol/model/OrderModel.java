@@ -1,31 +1,32 @@
 package com.br.apiordercontrol.model;
 
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.annotation.Collation;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "pedido")
+@Document
 public class OrderModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "cliente_id")
+//    @Collation(name = "cliente_id")
     private Long clientId;
 
-    @Column(name = "quantidade")
+  //  @Column(name = "quantidade")
     private Integer quantity;
 
-    @Column(name = "status")
+  //  @Column(name = "status")
     private String status;
 
-    @Column(name = "telefone")
+  //  @Column(name = "telefone")
     private Long phone;
 
-    @Column(name = "email")
+    //@Column(name = "email")
     private String email;
 }

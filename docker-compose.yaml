@@ -1,19 +1,12 @@
 version: '3.3'
+
 services:
-  db:
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'pedido'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: '0510'
-      MYSQL_ROOT_PASSWORD: '0510'
+  mongodb_marketplace:
+    container_name: mongodb_marketplace
+    image: mongo:latest
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
-    volumes:
-      - my-db:/var/lib/mysql
-# Names our volume
-volumes:
-  my-db:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: pedido
+      MONGO_INITDB_ROOT_PASSWORD: pedido
+      MONGO_INITDB_DATABASE: order
