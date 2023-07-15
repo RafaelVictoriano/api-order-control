@@ -4,29 +4,26 @@ package com.br.apiordercontrol.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.annotation.Collation;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.List;
 
 @Getter
 @Setter
-@Document
+@Document(collection = "order")
 public class OrderModel {
 
     @Id
-    private Long id;
+    private String id;
 
-//    @Collation(name = "cliente_id")
+    @Field(name = "cliente_id")
     private Long clientId;
 
-  //  @Column(name = "quantidade")
-    private Integer quantity;
+    @Field(name = "pedido")
+    private List<ProdutoPedido> produtoPedido;
 
-  //  @Column(name = "status")
-    private String status;
+    @Field(name = "status")
+    private List<String> status;
 
-  //  @Column(name = "telefone")
-    private Long phone;
-
-    //@Column(name = "email")
-    private String email;
 }
