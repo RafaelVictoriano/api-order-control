@@ -20,7 +20,7 @@ public class OrderModel {
     @Field(name = "cliente_id")
     private Long clientId;
 
-    @Field(name = "pedido")
+    @Field(name = "produto")
     private List<ProdutoPedido> produtoPedido;
 
     @Field(name = "status")
