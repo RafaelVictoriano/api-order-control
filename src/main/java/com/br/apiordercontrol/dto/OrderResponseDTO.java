@@ -11,11 +11,13 @@ import java.util.List;
 
 @Getter
 @Setter
-public class OrderRequestDTO {
+public class OrderResponseDTO {
 
     @NotNull
     @Min(1)
     private Long clientId;
+
+    private List<String> status;
 
     @Valid
     @NotNull

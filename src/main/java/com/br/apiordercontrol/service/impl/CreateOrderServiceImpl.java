@@ -8,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Log4j2
 @Service
 public class CreateOrderServiceImpl implements CreateOrderService {
@@ -19,9 +21,10 @@ public class CreateOrderServiceImpl implements CreateOrderService {
     private OrderMapper mapper;
 
     @Override
-    public Long start(OrderRequestDTO dto) {
+    public String start(OrderRequestDTO dto) {
         log.info("Saving order, order:{}", dto);
         final var order = mapper.toModel(dto);
+        order.setStatus(List.of("CRIADO"));
         repository.save(order);
         log.info("Saved order: {}", order);
         return order.getId();
