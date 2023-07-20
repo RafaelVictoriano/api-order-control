@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,6 +27,8 @@ public class Handler {
     @Autowired
     private MessageSource messageSource;
 
+
+    @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<ResponseErrorDTO> handlingException(MethodArgumentNotValidException exception) {
         final var fieldsError = exception.getBindingResult().getFieldErrors();
@@ -35,29 +38,31 @@ public class Handler {
             log.error("Error {}", message);
             return ResponseErrorDTO.builder()
                     .code(BAD_REQUEST)
-                    .message(fieldError.getField()+ " " + message)
+                    .message(fieldError.getField() + " " + message)
                     .build();
         }).collect(Collectors.toList());
     }
 
     @ExceptionHandler(ResponseStatusException.class)
-    public ResponseErrorDTO handlingResponseStatusException(ResponseStatusException exception) {
+    public ResponseEntity<ResponseErrorDTO> handlingResponseStatusException(ResponseStatusException exception) {
         log.error("Error {}", exception.getReason());
-        return ResponseErrorDTO.builder()
-                .code(exception.getStatusCode())
-                .message(exception.getMessage())
-                .build();
+        return ResponseEntity
+                .status(exception.getStatusCode())
+                .body(ResponseErrorDTO.builder()
+                        .code(exception.getStatusCode())
+                        .message(exception.getMessage())
+                        .build());
     }
 
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(BusinessException.class)
-    public ResponseErrorDTO handlingExceptionGlobal(BusinessException exception) {
+    public ResponseEntity<ResponseErrorDTO> handlingExceptionGlobal(BusinessException exception) {
         log.error("Error {}", exception.getMessage());
-        return ResponseErrorDTO.builder()
+        return ResponseEntity.status(exception.getStatusCode())
+                .body(ResponseErrorDTO.builder()
                 .code(exception.getStatusCode())
                 .message(exception.getMessage())
-                .build();
+                .build());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
