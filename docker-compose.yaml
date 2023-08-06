@@ -10,3 +10,19 @@ services:
       MONGO_INITDB_ROOT_USERNAME: pedido
       MONGO_INITDB_ROOT_PASSWORD: pedido
       MONGO_INITDB_DATABASE: order
+    networks:
+      - my_network # Utilizaremos a mesma rede personalizada "my_network"
+
+
+  app:
+    container_name: api-order-control
+    image: api-order-control:2
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    networks:
+      - my_network # Utilizaremos a mesma rede personalizada "my_network"
+
+networks:
+  my_network: # Definição da rede personalizada

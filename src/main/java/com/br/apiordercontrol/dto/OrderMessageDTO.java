@@ -1,21 +1,16 @@
 package com.br.apiordercontrol.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class OrderRequestDTO {
+public class OrderMessageDTO {
 
     @NotNull
     @Min(1)
@@ -23,6 +18,5 @@ public class OrderRequestDTO {
 
     @Valid
     @NotNull
-    @JsonProperty("products")
-    private List<@Valid ProdutoPedidoDTO> produtoPedido;
+    private List<@Valid ProdutoPedidoDTO> products;
 }
